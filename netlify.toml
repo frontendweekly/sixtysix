@@ -17,7 +17,7 @@
 
 # Netlify subdomain
 [[redirects]]
-    from = "https://virga.netlify.com/*"
-    to = "https://virga.frontendweekly.tokyo/:splat"
+    from = "https://sixtysix.netlify.com/*"
+    to = "https://sixtysix.frontendweekly.tokyo/:splat"
     status = 301
     force = true

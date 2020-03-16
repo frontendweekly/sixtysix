@@ -16,31 +16,45 @@ const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 // Command line Arguments
 const args = arg({
   // Types
-  '--title': String,
   '--date': String,
   '--quoteBy': String,
+  '--cite': String,
+  '--link': String,
+  '--when': String,
   '--author': String,
 
   // Aliases
-  '-t': '--title',
   '-d': '--date',
   '-q': '--quoteBy',
+  '-c': '--cite',
+  '-l': '--link',
+  '-w': '--when',
   '-a': '--author'
 });
 
 const options = {
-  title: args['--title'] || 'THIS IS YOUR TITLE OF POST',
   date: args['--date'] || '',
   quoteBy: args['--quoteBy'] || 'WHOSE QUOTE IS IT',
-  author: args['--author'] || 'WHO POST THIS QUOTE'
+  cite: args['--cite'] || '',
+  when: args['--when'] || '2005, June 12',
+  link: args['--link'] || '',
+  author: args['--author'] || ''
 };
 
 const frontMatter = () => {
   const today = new Date().toISOString();
-  return matter.stringify('', {
-    title: options.title,
+  const file = `
+> {{ quote | safe }}
+> — {{ quoteBy | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+`;
+
+  return matter.stringify(file, {
     date: options.date || today,
+    quote: '|-',
     quoteBy: options.quoteBy,
+    cite: options.cite,
+    link: options.link,
+    when: options.when,
     author: options.author
   });
 };

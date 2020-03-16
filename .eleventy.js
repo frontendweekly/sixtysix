@@ -6,6 +6,7 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 const dateFilter = require('./src/_filters/date-filter.js');
 const markdownFilter = require('./src/_filters/markdown-filter.js');
 const w3DateFilter = require('./src/_filters/w3-date-filter.js');
+const quoteByFilter = require('./src/_filters/quote-by-filter.js');
 
 // Import transforms
 const htmlMinTransform = require('./src/_transforms/html-min-transform.js');
@@ -34,6 +35,7 @@ module.exports = function(config) {
   config.addFilter('markdownFilter', markdownFilter);
   config.addFilter('w3DateFilter', w3DateFilter);
   config.addFilter('jsonify', value => JSON.stringify(value));
+  config.addFilter('quoteByJoin', quoteByFilter);
 
   // Transforms
   config.addTransform('htmlmin', htmlMinTransform);

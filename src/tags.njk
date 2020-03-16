@@ -1,0 +1,36 @@
+---
+title: Tag Archive
+pagination:
+  data: collections
+  size: 1
+  alias: tag
+  filter:
+    - all
+    - nav
+    - post
+    - posts
+    - tagList
+    - postFeed
+  addAllPagesToCollections: true
+permalink: /quote/{{ tag | slug }}/
+---
+
+{% extends 'layouts/base.njk' %}
+{% set pageType = 'Quote by' %}
+
+{# Intro content #}
+{% set introHeading %}Quote by “{{ tag }}”{% endset %}
+{% set introHeadingLevel = '2' %}
+
+{# Post list content #}
+{% set postListHeadingLevel = '2' %}
+{% set postListHeading = 'Quote' %}
+{% set postListItems = collections[tag] %}
+
+{% block content %}
+  <main id="main-content" tabindex="-1">
+    {% include "partials/components/intro.njk" %}
+    {% include "partials/components/post-list.njk" %}
+    {% include "partials/components/pagination.njk" %}
+  </main>
+{% endblock %}

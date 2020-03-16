@@ -1,13 +1,19 @@
-{% set pageTitle = title + ' - ' + site.name %}
+{% set pageTitle = quote | truncate(45) + ' - ' + site.name %}
 
 {% if pageType == 'Homepage' %}
   {% set pageTitle = site.name %}
+{% endif %}
+
+{% if pageType == 'Archive' %}
+  {% set pageTitle = title + ' - ' + site.name %}
 {% endif %}
 
 {% set currentUrl = site.url + page.url %}
 
 {% if desc %}
   {% set metaDesc = desc %}
+{% else %}
+  {% set metaDesc = quote | truncate(45) %}
 {% endif %}
 
 {% if author %}

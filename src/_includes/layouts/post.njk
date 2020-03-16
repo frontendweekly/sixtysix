@@ -2,9 +2,14 @@
 {% set pageType = 'Post' %}
 
 {# Intro content #}
-{% set introHeading = title %}
+{% set introHeading = quote | truncate(45) %}
 
-{% set metaAuthor = author %}
+{% if author %}
+  {% set metaAuthor = author %}
+{% else %}
+  {% set metaAuthor = site.author.name %}
+{% endif %}
+
 {% set metaDate = date %}
 
 {% set introSummary %}
@@ -13,12 +18,25 @@
 
 {% block content %}
 <main id="main-content" tabindex="-1" class="page-{{ pageType | lower }}">
-  <article class="c-post h-entry">
+  <article class="c-post h-entry"{{ ' lang="ja"' if lang == 'ja' }}>
     {% include "partials/components/intro.njk" %}
-    <div class="c-post__body inner-wrapper">
+    <div class="c-post__body o-inner-wrapper">
       {{ content | safe }}
     </div>
   </article>
+  {% if tags %}
+    <hr class="o-hr o-hr--three-stars">
+  <footer class="c-post__footer">
+    <div class="o-inner-wrapper">
+      <h3>Quote by</h3>
+      <nav class="c-navigation p-category">
+      {% for item in tags %}
+        <a href="/quote/{{ item }}">{{ item }}</a>
+      {% endfor %}
+      </nav>
+    </div>
+  </footer>
+  {% endif %}
 </main>
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {
   "name": "sixtysix",
   "version": "0.0.1",
-  "description": "Sixty Six is collection of quotes for mostly for me not to looking up again and again.",
+  "description": "Sixty Six is collection of quotes so I stop forgetting what I thought and/or read.",
   "scripts": {
     "build": "cross-env ELEVENTY_ENV=production eleventy",
     "build:clean": "rimraf dist/*",

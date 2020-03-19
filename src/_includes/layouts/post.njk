@@ -31,7 +31,7 @@
       <h3>Quote by</h3>
       <nav class="c-navigation p-category">
       {% for item in tags %}
-        <a href="/quote/{{ item }}">{{ item }}</a>
+        <a href="/quote/{{ item | slug }}">{{ item }}</a>
       {% endfor %}
       </nav>
     </div>

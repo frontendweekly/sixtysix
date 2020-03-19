@@ -11,13 +11,8 @@
       "external": false
     },
     {
-      "text": "Twitter",
-      "url": "https://twitter.com/frontend_weekly",
-      "external": true
-    },
-    {
-      "text": "GitHub",
-      "url": "https://github.com/frontendweekly/sixtysix",
+      "text": "Frontend Weekly Tokyo",
+      "url": "https://frontendweekly.tokyo",
       "external": true
     }
   ]

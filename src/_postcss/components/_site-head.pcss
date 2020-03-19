@@ -1,11 +1,13 @@
 .c-site-head {
-  padding: calc(var(--space-base) * 4) calc(var(--space-base) * 2);
+  padding: calc(var(--space-base) * 4) 0;
 }
 
-.c-site-head__inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+@media screen and (min-width: 48rem) {
+  .c-site-head__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 .c-site-head__site-name {
@@ -18,4 +20,14 @@
   font-weight: 700;
   text-decoration: none;
   color: var(--color-text);
+}
+
+.c-site-head__site-name--logo {
+  height: 50px;
+  width: 50px;
+  display: block;
+}
+
+.c-site-head__site-name--logo svg {
+  border-radius: 12%;
 }

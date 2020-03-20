@@ -5,8 +5,9 @@
   "scripts": {
     "build": "cross-env ELEVENTY_ENV=production eleventy",
     "build:clean": "rimraf dist/*",
+    "build:function": "netlify functions:build",
     "build:postcss": "postcss src/_postcss/main.pcss -o src/_includes/assets/styles/main.css --env production",
-    "build:production": "run-s build:clean build:postcss build",
+    "build:production": "run-s build:clean build:function build:postcss build",
     "build:post": "node _task/build-post.js",
     "dev": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "dev:netlify": "cross-env ELEVENTY_ENV=development netlify dev",
@@ -41,12 +42,14 @@
     "markdown-it-classy": "^0.2.0",
     "markdown-it-deflist": "^2.0.3",
     "markdown-it-footnote": "^3.0.2",
+    "node-fetch": "^2.6.0",
     "postcss": "^7.0.27",
     "postcss-cli": "^7.1.0",
     "postcss-import": "^12.0.1",
     "postcss-load-config": "^2.1.0",
     "postcss-preset-env": "^6.7.0",
-    "slugify": "^1.4.0"
+    "slugify": "^1.4.0",
+    "twitter": "^1.7.1"
   },
   "devDependencies": {
     "arg": "^4.1.3",
@@ -64,11 +67,11 @@
     "jest": "^25.1.0",
     "jest-date-mock": "^1.0.8",
     "lint-staged": "^10.0.8",
-    "netlify-cli": "^2.37.0",
+    "netlify-cli": "^2.40.0",
     "npm-run-all": "^4.1.5",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^13.2.0",
+    "stylelint": "^13.2.1",
     "stylelint-config-prettier": "^8.0.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-prettier": "^1.1.2"

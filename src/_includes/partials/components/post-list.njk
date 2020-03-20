@@ -21,9 +21,6 @@
                    rel="bookmark">{{ item.data.quote | truncate(120) }}</a>
               </h3>
               {% include "partials/components/post-meta.njk" %}
-              <p class="c-post-list__summary p-summary">
-                <a href="{{ item.url }}" class="c-post-list__link u-url" rel="bookmark">{{ item.data.desc }}</a>
-              </p>
             </article>
           </li>
         {% endif %}

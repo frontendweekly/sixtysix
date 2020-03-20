@@ -11,12 +11,10 @@ dist
 .env
 
 # Specifics
+functions/*.zip
 
 # Hide compiled CSS
 src/_includes/assets/styles/*
-
-# Hide functions
-functions
 
 # Local Netlify folder
 .netlify

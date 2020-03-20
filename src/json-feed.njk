@@ -19,8 +19,8 @@ permalink: '/feed.json'
   {
   "id": "{{ absolutePostUrl }}",
   "url": "{{ absolutePostUrl }}",
-  "title": "{{ post.data.title }}",
-  "summary": "{{ post.data.desc }}",
+  "title": {{ post.data.quote | truncate(60) | jsonify | safe }},
+  "summary": {{ post.data.quote | truncate(120) | jsonify | safe }},
   "content_html": {{ post.templateContent | jsonify | safe }},
   "date_published": "{{ post.date | rssDate }}"
   }{{ "," if not loop.last }}

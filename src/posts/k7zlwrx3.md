@@ -6,6 +6,7 @@ tags: Yojiro Ishi
 cite: 卒業式を中止した立教新座高校3年生諸君へ。
 link: https://www.c.u-tokyo.ac.jp/info/about/history/dean/2013-2015/h27.3.25ishii.html
 when: '2014, Mar 25'
+lang: ja
 ---
 
 > {{ quote | safe }}

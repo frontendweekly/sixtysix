@@ -7,6 +7,6 @@
           class="c-post-meta__date dt-published">{{ metaDate | dateFilter }}</time>
   {% endif %}
   {% if tags %}
-    <span class="p-author h-card">/ Quote from {{ tags | quoteByJoin }}</span>
+    <span class="p-author h-card">/ Quote from {% for item in tags %}<a href="/quote/{{ item | slug }}">{{ item }}</a> {% endfor %}</span>
   {% endif %}
 </p>

@@ -45,13 +45,13 @@ const frontMatter = () => {
   const today = new Date().toISOString();
   const file = `
 > {{ quote | safe }}
-> — {{ quoteBy | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
 `;
 
   return matter.stringify(file, {
     date: options.date || today,
     quote: '|-',
-    quoteBy: options.quoteBy,
+    tags: options.quoteBy,
     cite: options.cite,
     link: options.link,
     when: options.when,

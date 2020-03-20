@@ -24,7 +24,7 @@ describe('Front matter for new content', () => {
 ---
 date: '${new Date().toISOString()}'
 quote: '|-'
-quoteBy: WHOSE QUOTE IS IT
+tags: WHOSE QUOTE IS IT
 cite: ''
 link: ''
 when: '2005, June 12'

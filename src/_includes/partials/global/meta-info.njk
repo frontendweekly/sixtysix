@@ -8,6 +8,10 @@
   {% set pageTitle = title + ' - ' + site.name %}
 {% endif %}
 
+{% if pageType == 'Quote by' %}
+  {% set pageTitle = 'Quote by ' + tag + ' - ' + site.name %}
+{% endif %}
+
 {% set currentUrl = site.url + page.url %}
 
 {% if desc %}

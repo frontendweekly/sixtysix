@@ -10,7 +10,7 @@ const handleError = err => {
   process.exit(1);
 };
 
-// Posts location
+// `/posts` location
 const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 
 // Command line Arguments

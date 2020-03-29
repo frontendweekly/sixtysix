@@ -14,16 +14,16 @@ const twitter = new Twitter({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
   consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
   access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
 // Helper Function to return unknown errors
-const handleError = err => {
+const handleError = (err) => {
   console.error(err);
   const msg = Array.isArray(err) ? err[0].message : err.message;
   return {
     statusCode: 422,
-    body: String(msg)
+    body: String(msg),
   };
 };
 
@@ -32,12 +32,12 @@ const status = (code, msg) => {
   console.log(msg);
   return {
     statusCode: code,
-    body: msg
+    body: msg,
   };
 };
 
 // Check existing posts
-const processPosts = async posts => {
+const processPosts = async (posts) => {
   const siteTitle = posts.title;
   const items = posts.items;
 
@@ -67,20 +67,21 @@ const processPosts = async posts => {
 // Prepare the content string for tweet format
 const prepareStatusText = (siteTitle, post) => {
   // Tweet will be
-  // title === {{ post.data.quote | truncate(60) | jsonify | safe }}
-  // url === https://sixtysix.frontendweekly.tokyo/posts/k7zl1dgp/
+  // title === {{ post.data.title | truncate(60) | jsonify | safe }}
   // `${title} via ${siteTitle}: {$url}`
   // `${title} via ${siteTitle}: ${$url}`.length MUST be within maxLength
   const tweetMaxLength = 280;
-  const urlLength = `${String(post.url).length}`;
+  const urlLength = String(post.url).length;
   const viaLength = 3;
+  const siteTitleLength = String(siteTitle).length;
   const spaceLength = 3;
   const colon = 1;
-  const maxLength = tweetMaxLength - viaLength - spaceLength - colon - urlLength;
+  const maxLength =
+    tweetMaxLength - viaLength - siteTitleLength - spaceLength - colon - urlLength;
 
   const title = post.title;
 
-  let tweetText = `${title} via SixtySix: `;
+  let tweetText = `${title} via ${siteTitle}: `;
 
   // truncate text if its too long for a tweet.
   if (tweetText.length > maxLength) {
@@ -98,7 +99,7 @@ const publishPost = async (siteTitle, post) => {
   try {
     const statusText = prepareStatusText(siteTitle, post);
     const tweet = await twitter.post('statuses/update', {
-      status: statusText
+      status: statusText,
     });
     if (tweet) {
       return status(200, `Post ${post.date} successfully posted to Twitter.`);
@@ -115,7 +116,7 @@ exports.handler = async () => {
   // Fetch the list of published posts to work on,
   // then process them to check if an action is necessary
   return fetch(FEED_URL)
-    .then(response => response.json())
+    .then((response) => response.json())
     .then(processPosts)
     .catch(handleError);
 };

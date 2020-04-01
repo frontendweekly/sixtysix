@@ -4,11 +4,8 @@ const fs = require('fs');
 const matter = require('gray-matter');
 const arg = require('arg');
 
-/// Helper Function to return unknown errors
-const handleError = err => {
-  console.error(err);
-  process.exit(1);
-};
+// Import data files
+const {author} = require('../src/_data/site.json');
 
 // `/posts` location
 const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
@@ -29,33 +26,38 @@ const args = arg({
   '-c': '--cite',
   '-l': '--link',
   '-w': '--when',
-  '-a': '--author'
+  '-a': '--author',
 });
 
 const options = {
-  date: args['--date'] || '',
+  date: args['--date'] || new Date().toISOString(),
   quoteBy: args['--quoteBy'] || 'WHOSE QUOTE IS IT',
   cite: args['--cite'] || '',
-  when: args['--when'] || '2005, June 12',
+  when: args['--when'] || '',
   link: args['--link'] || '',
-  author: args['--author'] || ''
+  author: args['--author'] || author.name,
+};
+
+/// Helper Function to return unknown errors
+const handleError = (err) => {
+  console.error(err);
+  process.exit(1);
 };
 
 const frontMatter = () => {
-  const today = new Date().toISOString();
   const file = `
 > {{ quote | safe }}
 > — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
 `;
 
   return matter.stringify(file, {
-    date: options.date || today,
-    quote: '|-',
+    date: options.date,
+    quote: `|-`,
     tags: options.quoteBy,
     cite: options.cite,
     link: options.link,
     when: options.when,
-    author: options.author
+    author: options.author,
   });
 };
 

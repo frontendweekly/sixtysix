@@ -3,10 +3,10 @@ const {JSDOM} = jsdom;
 const minify = require('../_utils/minify.js');
 const slugify = require('slugify');
 
-module.exports = function(value, outputPath) {
+module.exports = function (value, outputPath) {
   if (outputPath.endsWith('.html')) {
     const DOM = new JSDOM(value, {
-      resources: 'usable'
+      resources: 'usable',
     });
 
     const document = DOM.window.document;
@@ -14,12 +14,12 @@ module.exports = function(value, outputPath) {
     const articleHeadings = [
       ...document.querySelectorAll(
         '.c-post h2, .c-post h3, .c-post h4, .c-post h5, .c-post h6'
-      )
+      ),
     ];
     const articleEmbeds = [...document.querySelectorAll('.c-post iframe')];
 
     if (articleImages.length) {
-      articleImages.forEach(image => {
+      articleImages.forEach((image) => {
         image.setAttribute('loading', 'lazy');
 
         // If an image has a title it means that the user added a caption
@@ -39,7 +39,7 @@ module.exports = function(value, outputPath) {
 
     if (articleHeadings.length) {
       // Loop each heading and add a little anchor and an ID to each one
-      articleHeadings.forEach(heading => {
+      articleHeadings.forEach((heading) => {
         const headingSlug = slugify(heading.textContent.toLowerCase());
         const anchor = document.createElement('a');
 
@@ -58,7 +58,7 @@ module.exports = function(value, outputPath) {
 
     // Look for videos are wrap them in a container element
     if (articleEmbeds.length) {
-      articleEmbeds.forEach(embed => {
+      articleEmbeds.forEach((embed) => {
         if (embed.hasAttribute('allowfullscreen')) {
           const player = document.createElement('div');
           player.classList.add('c-video-player');

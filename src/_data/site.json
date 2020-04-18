@@ -12,7 +12,7 @@
     "twitter": "https://twitter.com/frontend_weekly"
   },
   "showThemeCredit": true,
-  "maxPostsPerPage": 5,
+  "maxPostsPerPage": 10,
   "logo": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 300 300\"><title>Sixty Six</title><g fill=\"none\" fill-rule=\"evenodd\"><path fill=\"#444\" d=\"M0 0h300v300H0z\"/><g fill=\"#F8F2E3\" fill-rule=\"nonzero\"><path d=\"M133.998 165.184H46.42v-24.81c0-13.676 11.049-24.828 24.64-24.828V99C48.42 99 30 117.562 30 140.374V270h104l-.002-104.816zm-16.42 88.249h-71.16v-71.706h71.16v71.706zM246.998 165.184H159.42v-24.81c0-13.676 11.049-24.828 24.64-24.828V99C161.42 99 143 117.562 143 140.374V270h104l-.002-104.816zm-16.42 88.249h-71.16v-71.706h71.16v71.706z\"/></g></g></svg>",
   "paymentPointer": "$pay.stronghold.co/1a1d5ecbf6f988e4be3abc11cfb0a0b912d"
 }

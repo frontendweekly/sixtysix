@@ -1,12 +1,9 @@
 <p class="c-post-meta">
-  {% if metaAuthor %}
-    <span class="c-post-meta__author p-author h-card">{{ metaAuthor }}</span>
+  {% if tags %}
+    <span class="p-author h-card">Quote from {{ tags | quoteByJoin }}</span>
   {% endif %}
   {% if metaDate %}
     <time datetime="{{ metaDate | w3DateFilter }}"
-          class="c-post-meta__date dt-published">{{ metaDate | dateFilter }}</time>
-  {% endif %}
-  {% if tags %}
-    <span class="p-author h-card">/ Quote from {% for item in tags %}<a href="/quote/{{ item | slug }}">{{ item }}</a> {% endfor %}</span>
+          class="c-post-meta__date dt-published">/ {{ metaDate | dateFilter }}</time>
   {% endif %}
 </p>

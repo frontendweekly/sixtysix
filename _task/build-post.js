@@ -1,77 +1,72 @@
 const path = require('path');
 const fs = require('fs');
 
+const qoa = require('qoa');
+const signale = require('signale');
 const matter = require('gray-matter');
-const arg = require('arg');
-
-// Import data files
-const {author} = require('../src/_data/site.json');
 
 // `/posts` location
 const POSTS_DIR = path.resolve(process.env.PWD, 'src/posts');
 
-// Command line Arguments
-const args = arg({
-  // Types
-  '--date': String,
-  '--quoteBy': String,
-  '--cite': String,
-  '--link': String,
-  '--when': String,
-  '--author': String,
-
-  // Aliases
-  '-d': '--date',
-  '-q': '--quoteBy',
-  '-c': '--cite',
-  '-l': '--link',
-  '-w': '--when',
-  '-a': '--author',
-});
-
-const options = {
-  date: args['--date'] || new Date().toISOString(),
-  quoteBy: args['--quoteBy'] || 'WHOSE QUOTE IS IT',
-  cite: args['--cite'] || '',
-  when: args['--when'] || '',
-  link: args['--link'] || '',
-  author: args['--author'] || author.name,
-};
-
 /// Helper Function to return unknown errors
 const handleError = (err) => {
-  console.error(err);
+  signale.fatal(err);
   process.exit(1);
 };
 
-const frontMatter = () => {
+const ps = [
+  {
+    type: 'input',
+    query: `The quote itself:`,
+    handle: 'quote',
+  },
+  {
+    type: 'input',
+    query: `Who's quote it it?:`,
+    handle: 'quoteBy',
+  },
+  {
+    type: 'input',
+    query: `Where quote is cited from? Most likely title of the article:`,
+    handle: 'cite',
+  },
+  {
+    type: 'input',
+    query: `URL of the quote:`,
+    handle: 'link',
+  },
+  {
+    type: 'input',
+    query: `When the work published? (e.g. 2020, Apr 3):`,
+    handle: 'when',
+  },
+];
+
+const frontMatter = async () => {
+  const options = await qoa.prompt(ps);
+
   const file = `
 > {{ quote | safe }}
 > — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
 `;
 
   return matter.stringify(file, {
-    date: options.date,
-    quote: `|-`,
-    tags: options.quoteBy,
+    date: new Date(),
+    tags: options.quoteBy.split(','),
     cite: options.cite,
     link: options.link,
     when: options.when,
-    author: options.author,
+    quote: options.quote,
   });
 };
 
-// Save md
-const savePost = () => {
+frontMatter().then((result) => {
+  // Save md
   const filePath = `${POSTS_DIR}/${(+new Date()).toString(36)}.md`;
   try {
-    console.log(`Creating new post: ${filePath}`);
-    fs.writeFileSync(filePath, frontMatter(), 'utf-8');
+    signale.success(`Creating new post: ${filePath}`);
+    fs.writeFileSync(filePath, result, 'utf-8');
   } catch (err) {
     handleError(err);
   }
-};
-
-savePost();
-
-module.exports = {frontMatter, savePost};
+});

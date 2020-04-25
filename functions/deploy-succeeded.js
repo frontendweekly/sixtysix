@@ -71,17 +71,22 @@ const prepareStatusText = (siteTitle, post) => {
   // `${title} via ${siteTitle}: {$url}`
   // `${title} via ${siteTitle}: ${$url}`.length MUST be within maxLength
   const tweetMaxLength = 280;
+  const titleLength = String(post.title).length;
   const urlLength = String(post.url).length;
   const viaLength = 3;
   const siteTitleLength = String(siteTitle).length;
   const spaceLength = 3;
   const colon = 1;
   const maxLength =
-    tweetMaxLength - viaLength - siteTitleLength - spaceLength - colon - urlLength;
+    tweetMaxLength -
+    titleLength -
+    viaLength -
+    siteTitleLength -
+    spaceLength -
+    colon -
+    urlLength;
 
-  const title = post.title;
-
-  let tweetText = `${title} via ${siteTitle}: `;
+  let tweetText = `${post.title} via ${siteTitle}: `;
 
   // truncate text if its too long for a tweet.
   if (tweetText.length > maxLength) {

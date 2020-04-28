@@ -11,4 +11,4 @@ author: Yuya Saito
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, [{{ cite }}]({{ link }}). ({{ when }})

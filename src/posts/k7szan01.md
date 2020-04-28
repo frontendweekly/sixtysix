@@ -10,4 +10,4 @@ when: '2014, Mar 26'
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, [{{ cite }}]({{ link }}). ({{ when }})

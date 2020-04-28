@@ -10,4 +10,4 @@ when: '2019, Jun 27'
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, [{{ cite }}]({{ link }}). ({{ when }})

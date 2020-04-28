@@ -1,6 +1,6 @@
 <p class="c-post-meta">
   {% if tags %}
-    <span class="p-author h-card">Quote from {{ tags | quoteByJoin }}</span>
+    <span class="p-author h-card">Quote from {{ tags | tagsToSentence | safe }}</span>
   {% endif %}
   {% if metaDate %}
     <time datetime="{{ metaDate | w3DateFilter }}"

@@ -9,4 +9,4 @@ cite: Times Call for Liberal Action, Says Kennedy.
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, {{ cite }}. ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, {{ cite }}. ({{ when }})

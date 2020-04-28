@@ -7,4 +7,4 @@ tags:
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}
+> — {{ tags | tagsToSentence | safe }}

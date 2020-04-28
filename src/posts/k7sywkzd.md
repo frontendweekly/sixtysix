@@ -9,4 +9,4 @@ link: http://adamsmorioka.com/step-qa-michael-bierut/
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}).
+> — {{ tags | tagsToSentence | safe }}, [{{ cite }}]({{ link }}).

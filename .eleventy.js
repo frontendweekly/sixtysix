@@ -3,14 +3,10 @@ const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
 // Import filters
-const dateFilter = require('./src/_filters/date-filter.js');
-const markdownFilter = require('./src/_filters/markdown-filter.js');
-const w3DateFilter = require('./src/_filters/w3-date-filter.js');
-const quoteByFilter = require('./src/_filters/quote-by-filter.js');
+const filters = require('./src/_filters/filters.js');
 
 // Import transforms
-const htmlMinTransform = require('./src/_transforms/html-min-transform.js');
-const parseTransform = require('./src/_transforms/parse-transform.js');
+const transforms = require('./src/_transforms/transforms.js');
 
 // Markdown Setting
 const markdownIt = require('markdown-it');
@@ -22,7 +18,7 @@ const markdownItAttribution = require('markdown-it-attribution');
 // Import data files
 const site = require('./src/_data/site.json');
 
-module.exports = function(config) {
+module.exports = function (config) {
   // Watch postcss
   config.addWatchTarget('./src/_postcss/');
 
@@ -31,15 +27,14 @@ module.exports = function(config) {
   config.addPlugin(syntaxHighlight);
 
   // Filters
-  config.addFilter('dateFilter', dateFilter);
-  config.addFilter('markdownFilter', markdownFilter);
-  config.addFilter('w3DateFilter', w3DateFilter);
-  config.addFilter('jsonify', value => JSON.stringify(value));
-  config.addFilter('quoteByJoin', quoteByFilter);
+  Object.keys(filters).forEach((filterName) => {
+    config.addFilter(filterName, filters[filterName]);
+  });
 
   // Transforms
-  config.addTransform('htmlmin', htmlMinTransform);
-  config.addTransform('parse', parseTransform);
+  Object.keys(transforms).forEach((transformName) => {
+    config.addTransform(transformName, transforms[transformName]);
+  });
 
   // Load markdown-it plugins
   config.setLibrary(
@@ -47,13 +42,13 @@ module.exports = function(config) {
     markdownIt({
       html: true,
       breaks: true,
-      linkify: true
+      linkify: true,
     })
       .use(markdownItClassy)
       .use(markdownItFootnote)
       .use(markdownItDeflist)
       .use(markdownItAttribution, {
-        removeMarker: false
+        removeMarker: false,
       })
   );
 
@@ -69,14 +64,14 @@ module.exports = function(config) {
 
   // Custom collections
   const now = new Date();
-  const livePosts = post => post.date <= now && !post.data.draft;
-  config.addCollection('posts', collection => {
+  const livePosts = (post) => post.date <= now && !post.data.draft;
+  config.addCollection('posts', (collection) => {
     return [
-      ...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts)
+      ...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts),
     ].reverse();
   });
 
-  config.addCollection('postFeed', collection => {
+  config.addCollection('postFeed', (collection) => {
     return [...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts)]
       .reverse()
       .slice(0, site.maxPostsPerPage);
@@ -85,9 +80,11 @@ module.exports = function(config) {
   return {
     dir: {
       input: 'src',
-      output: 'dist'
+      output: 'dist',
     },
+    templateFormats: ['njk', 'md', '11ty.js'],
+    htmlTemplateEngine: 'njk',
     markdownTemplateEngine: 'njk',
-    passthroughFileCopy: true
+    passthroughFileCopy: true,
   };
 };

@@ -47,7 +47,7 @@ const frontMatter = async () => {
 
   const file = `
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, [{{ cite }}]({{ link }}). ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, [{{ cite }}]({{ link }}). ({{ when }})
 `;
 
   return matter.stringify(file, {

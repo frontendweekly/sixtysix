@@ -10,4 +10,4 @@ cite: Batman Begins
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, {{ cite }} ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, {{ cite }} ({{ when }})

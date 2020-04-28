@@ -9,4 +9,4 @@ cite: Stanford Commencement Address.
 ---
 
 > {{ quote | safe }}
-> — {{ tags | quoteByJoin }}, {{ cite }} ({{ when }})
+> — {{ tags | tagsToSentence | safe }}, {{ cite }} ({{ when }})

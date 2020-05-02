@@ -3,7 +3,7 @@
     <span class="p-author h-card">Quote from {{ tags | tagsToSentence | safe }}</span>
   {% endif %}
   {% if metaDate %}
-    <time datetime="{{ metaDate | w3DateFilter }}"
-          class="c-post-meta__date dt-published">/ {{ metaDate | dateFilter }}</time>
+    <time datetime="{{ metaDate | dateIsoFilter }}"
+          class="c-post-meta__date dt-published">/ {{ metaDate | dateOrdinalSuffixFilter }}</time>
   {% endif %}
 </p>

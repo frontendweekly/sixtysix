@@ -18,7 +18,7 @@
             <article {{ 'lang=ja' if item.data.lang == 'ja' }}>
               <h3>
                 <a href="{{ item.url }}" class="c-post-list__link u-url"
-                   rel="bookmark">{{ item.data.quote | truncate(120) }}</a>
+                   rel="bookmark">{{ item.data.quote | truncate(120) | safe }}</a>
               </h3>
               {% include "partials/components/post-meta.njk" %}
             </article>

@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "Sixty Six is collection of quotes so I stop forgetting what I thought and/or read.",
   "scripts": {
-    "build": "cross-env ELEVENTY_ENV=production NODE_ENV=production eleventy",
+    "build": "cross-env ELEVENTY_ENV=production eleventy",
     "build:clean": "rimraf dist/*",
     "build:function": "netlify functions:build --src functions",
-    "build:production": "run-s build:clean build:function build",
+    "build:postcss": "cross-env NODE_ENV=production postcss src/_postcss/main.pcss -o src/_includes/assets/styles/main.css",
+    "build:production": "run-s build:clean build:function build:postcss build",
     "build:post": "node _task/build-post.js",
-    "dev": "cross-env ELEVENTY_ENV=development NODE_ENV=development eleventy --serve",
+    "dev": "cross-env ELEVENTY_ENV=development eleventy --serve",
     "dev:netlify": "cross-env ELEVENTY_ENV=development NODE_ENV=development netlify dev",
     "start": "npm run dev"
   },

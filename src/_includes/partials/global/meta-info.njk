@@ -54,6 +54,7 @@
   <meta name="twitter:description" content="{{ metaDesc }}">
 {% endif %}
 
+{% if pageType === 'Post' %}
 <meta property="og:image" content="{{ site.url }}/previews/{{ page.fileSlug }}/preview.png">
 <meta property="og:image:alt" content="{{ metaDesc }}">
 <meta property="og:image:height" content="1200">
@@ -62,6 +63,7 @@
 <meta name="twitter:image" content="{{ site.url }}/previews/{{ page.fileSlug }}/preview.png">
 <meta name="twitter:image:alt" content="{{ metaDesc }}">
 <meta name="twitter:card" content="summary_large_image">
+{% endif %}
 
 {% if site.paymentPointer %}
   <meta name="monetization" content="{{ site.paymentPointer }}">

@@ -20,7 +20,11 @@
     <link rel="preload" href="/fonts/IBMPlexSerif-Regular.woff" as="font" type="font/woff">
     <link rel="preload" href="/fonts/IBMPlexSerif-Bold.woff" as="font" type="font/woff">
     <link rel="preload" href="/fonts/IBMPlexSerif-Italic.woff" as="font" type="font/woff">
-    <style>{% include "assets/styles/main.css" %}</style>
+    {% if global.environment == "production" %}
+      <style>{% include "assets/styles/main.css" %}</style>
+    {% else %}
+      <link rel="stylesheet" href="/css/main.css">
+    {% endif %}
   </head>
 </html>
 <body>

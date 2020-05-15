@@ -1,7 +1,10 @@
 // Import plugins
 const rssPlugin = require('@11ty/eleventy-plugin-rss');
 const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+
 const molle = require('@frontendweekly/molle');
+const collectionPost = require('@frontendweekly/collection-posts');
+const collectionPostFeed = require('@frontendweekly/collection-postfeed');
 
 // Import data files
 const site = require('./src/_data/site.json');
@@ -26,19 +29,10 @@ module.exports = function (config) {
   config.addLayoutAlias('home', 'layouts/home.njk');
 
   // Custom collections
-  const now = new Date();
-  const livePosts = (post) => post.date <= now && !post.data.draft;
-  config.addCollection('posts', (collection) => {
-    return [
-      ...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts),
-    ].reverse();
-  });
-
-  config.addCollection('postFeed', (collection) => {
-    return [...collection.getFilteredByGlob('./src/posts/*.md').filter(livePosts)]
-      .reverse()
-      .slice(0, site.maxPostsPerPage);
-  });
+  config.addCollection('posts', (collection) => collectionPost(collection));
+  config.addCollection('postFeed', (collection) =>
+    collectionPostFeed(collection, site.maxPostsPerPage)
+  );
 
   return {
     dir: {

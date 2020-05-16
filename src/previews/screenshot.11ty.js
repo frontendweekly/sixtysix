@@ -6,6 +6,14 @@ const imagemin = require('imagemin');
 const imageminPngquant = require('imagemin-pngquant');
 const tagToSentence = require('@frontendweekly/filter-tags-to-sentence');
 
+const getCacheList = () => {
+  const filePath = path.resolve(__dirname, '../../.cache/cache-preview.json');
+  if (fs.existsSync(filePath)) {
+    return JSON.parse(fs.readFileSync(filePath));
+  }
+  return [];
+};
+
 const markup = (data) => {
   const logo = raw(data.site.logo);
   const style = css(
@@ -90,7 +98,11 @@ module.exports = class {
   }
 
   async render(data) {
-    if (process.env.ELEVENTY_ENV === 'production') {
+    const fileSlug = data.screenshot.data.page.fileSlug;
+    const cacheList = getCacheList();
+    const hasCache = () => cacheList.filter((item) => item.includes(fileSlug))[0];
+
+    if (!hasCache()) {
       const dom = markup(data.screenshot.data);
       return this.getscreenshot(dom.toString());
     }

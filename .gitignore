@@ -11,6 +11,7 @@ dist
 .env
 
 # Specifics
+.cache/
 functions/*.zip
 
 # Hide compiled CSS

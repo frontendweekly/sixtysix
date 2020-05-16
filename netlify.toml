@@ -17,7 +17,11 @@
 
 # Netlify subdomain
 [[redirects]]
-    from = "https://sixtysix.netlify.com/*"
-    to = "https://sixtysix.frontendweekly.tokyo/:splat"
-    status = 301
-    force = true
+  from = "https://sixtysix.netlify.com/*"
+  to = "https://sixtysix.frontendweekly.tokyo/:splat"
+  status = 301
+  force = true
+
+# Netlify Build Plugins
+[[plugins]]
+  package = "./plugins/netlify-plugin-molle-cache"

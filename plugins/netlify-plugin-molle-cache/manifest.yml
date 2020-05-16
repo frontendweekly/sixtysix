@@ -1,0 +1,5 @@
+name: netlify-plugin-molle-cache
+inputs:
+  - name: outputFile
+    description: Output the result in this file, published with the Site
+    default: cache-preview.json

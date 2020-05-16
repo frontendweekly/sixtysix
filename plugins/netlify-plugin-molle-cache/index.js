@@ -2,6 +2,8 @@ const fs = require('fs');
 const fsp = require('fs').promises;
 const path = require('path');
 
+const getCacheDirs = (constants) => path.normalize(`${constants.PUBLISH_DIR}/previews`);
+
 module.exports = {
   async onPreBuild({constants, utils, inputs}) {
     const {PUBLISH_DIR} = constants;
@@ -10,12 +12,8 @@ module.exports = {
     const cacheManifestPath = path.join(cacheManifestDir, cacheManifestFile);
     const files = await utils.cache.list();
 
-    const previews = (item) => item.includes('previews');
     const sliceBySlash = (item) => item.split('/');
-    const fileSlug = files
-      .filter(previews)
-      .map(sliceBySlash)
-      .map((items) => items[items.length - 2]);
+    const fileSlug = files.map(sliceBySlash).map((items) => items[items.length - 2]);
     const jsonFile = JSON.stringify(fileSlug, null, 2);
 
     if (!fs.existsSync(cacheManifestDir)) {
@@ -32,8 +30,9 @@ module.exports = {
     }
   },
   async onPostBuild({constants, utils}) {
-    if (await utils.cache.save(`${constants.PUBLISH_DIR}`)) {
-      console.log(`Stored the ${constants.PUBLISH_DIR} to speed up future builds.`);
+    const cacheDir = getCacheDirs(constants);
+    if (await utils.cache.save(`${cacheDir}`)) {
+      console.log(`Stored the ${cacheDir} to speed up future builds.`);
     } else {
       console.log('Nothing found.');
     }

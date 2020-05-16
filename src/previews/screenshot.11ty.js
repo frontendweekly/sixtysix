@@ -104,7 +104,7 @@ module.exports = class {
     const isProd = process.env.ELEVENTY_ENV === 'production';
 
     if (isProd && !hasCache()) {
-      console.log(`Create a new screenshot`);
+      console.log(`Create a new screenshot: ${fileSlug}/preview.png`);
       const dom = markup(data.screenshot.data);
       return this.getscreenshot(dom.toString());
     }

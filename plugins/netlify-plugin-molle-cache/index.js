@@ -22,9 +22,14 @@ module.exports = {
       console.log(`${cacheManifestDir} isn't there so let's make one.`);
       await fsp.mkdir(cacheManifestDir);
     }
-    console.log(`Cache file count: ${files.length}`);
-    await fsp.writeFile(cacheManifestPath, jsonFile, 'utf-8');
-    console.log(`Cache manifest saved to ${cacheManifestPath}`);
+
+    if (files.length) {
+      await fsp.writeFile(cacheManifestPath, jsonFile, 'utf-8');
+      console.log(`Cache manifest saved to ${cacheManifestPath}`);
+      console.log(`Cache file count: ${files.length}`);
+    } else {
+      console.log('There is no cache available for now.');
+    }
   },
   async onPostBuild({constants, utils}) {
     if (await utils.cache.save(`${constants.PUBLISH_DIR}`)) {

@@ -101,8 +101,10 @@ module.exports = class {
     const fileSlug = data.screenshot.data.page.fileSlug;
     const cacheList = getCacheList();
     const hasCache = () => cacheList.filter((item) => item.includes(fileSlug))[0];
+    const isProd = process.env.ELEVENTY_ENV === 'production';
 
-    if (!hasCache()) {
+    if (isProd && !hasCache()) {
+      console.log(`Create a new screenshot`);
       const dom = markup(data.screenshot.data);
       return this.getscreenshot(dom.toString());
     }

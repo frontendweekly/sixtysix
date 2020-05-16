@@ -1,3 +1,4 @@
+const fs = require('fs');
 const fsp = require('fs').promises;
 const path = require('path');
 
@@ -17,7 +18,7 @@ module.exports = {
       .map((items) => items[items.length - 2]);
     const jsonFile = JSON.stringify(fileSlug, null, 2);
 
-    if (!(await fsp.stat(cacheManifestDir))) {
+    if (!fs.existsSync(cacheManifestDir)) {
       console.log(`${cacheManifestDir} isn't there so let's make one.`);
       await fsp.mkdir(cacheManifestDir);
     }

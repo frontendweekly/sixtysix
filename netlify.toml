@@ -24,4 +24,4 @@
 
 # Netlify Build Plugins
 [[plugins]]
-  package = "./plugins/netlify-plugin-molle-cache"
+  package = "@frontendweekly/netlify-plugin-screenshot-cache"

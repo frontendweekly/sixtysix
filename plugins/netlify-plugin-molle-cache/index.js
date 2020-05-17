@@ -1,40 +1,52 @@
-const fs = require('fs');
-const fsp = require('fs').promises;
+const {promises: fs} = require('fs');
 const path = require('path');
+const signale = require('signale');
 
-const getCacheDirs = (constants) => path.normalize(`${constants.PUBLISH_DIR}/previews`);
+async function pathExist(path) {
+  try {
+    await fs.access(path);
+    return true;
+  } catch (_) {
+    return false;
+  }
+}
 
 module.exports = {
-  async onPreBuild({constants, utils, inputs}) {
-    const {PUBLISH_DIR} = constants;
-    const cacheManifestFile = inputs.outputFile;
-    const cacheManifestDir = path.resolve(PUBLISH_DIR, '../.cache/');
-    const cacheManifestPath = path.join(cacheManifestDir, cacheManifestFile);
-    const files = await utils.cache.list();
-
-    const sliceBySlash = (item) => item.split('/');
-    const fileSlug = files.map(sliceBySlash).map((items) => items[items.length - 2]);
-    const jsonFile = JSON.stringify(fileSlug, null, 2);
-
-    if (!fs.existsSync(cacheManifestDir)) {
-      console.log(`${cacheManifestDir} isn't there so let's make one.`);
-      await fsp.mkdir(cacheManifestDir);
-    }
+  async onPreBuild({
+    constants: {PUBLISH_DIR},
+    utils: {cache},
+    inputs: {outputFile, cacheDirPath},
+  }) {
+    const files = await cache.list();
 
     if (files.length) {
-      await fsp.writeFile(cacheManifestPath, jsonFile, 'utf-8');
-      console.log(`Cache manifest saved to ${cacheManifestPath}`);
-      console.log(`Cache file count: ${files.length}`);
+      const cacheManifestDir = path.resolve(PUBLISH_DIR, cacheDirPath);
+      const cacheManifestPath = path.join(cacheManifestDir, outputFile);
+
+      if (!(await pathExist(cacheManifestDir))) {
+        signale.info(`${cacheManifestDir} isn't there so let's make one.`);
+        await fs.mkdir(cacheManifestDir);
+      }
+
+      const fileSlug = files
+        .map((item) => item.split('/'))
+        .map((items) => items[items.length - 2]);
+
+      await fs.writeFile(cacheManifestPath, JSON.stringify(fileSlug, null, 2), 'utf-8');
+
+      signale.success(`Cache manifest saved to ${cacheManifestPath}`);
+      signale.info(`Cache file count: ${files.length}`);
     } else {
-      console.log('There is no cache available for now.');
+      signale.log('There is no cache available for now.');
     }
   },
-  async onPostBuild({constants, utils}) {
-    const cacheDir = getCacheDirs(constants);
-    if (await utils.cache.save(`${cacheDir}`)) {
-      console.log(`Stored the ${cacheDir} to speed up future builds.`);
+  async onPostBuild({constants: {PUBLISH_DIR}, utils: {cache}, inputs: {screenshotDir}}) {
+    const cacheDir = path.normalize(`${PUBLISH_DIR}/${screenshotDir}`);
+
+    if (await cache.save(`${cacheDir}`)) {
+      signale.success(`Stored the ${cacheDir} to speed up future builds.`);
     } else {
-      console.log('Nothing found.');
+      signale.log('Nothing found.');
     }
   },
 };

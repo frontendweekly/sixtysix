@@ -30,12 +30,6 @@ const markup = (data) => {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <title>${data.site.name}</title>
-        <link href="https://fonts.googleapis.com" rel="dns-prefetch" />
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,700;1,400;1,700&display=optional"
-          rel="stylesheet"
-        />
         <style>
           ${style}
         </style>

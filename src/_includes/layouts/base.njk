@@ -12,8 +12,7 @@
     <link rel="alternate" type="application/json" title="{{ site.name }}" href="{{ site.url }}/feed.json">
     <script>document.documentElement.classList.remove('no-js');</script>
     {% include "partials/global/meta-info.njk" %}
-    {% include "partials/global/font-preload.njk" %}
-    {% if global.environment == "production" %}
+s    {% if global.environment == "production" %}
       <style>{% include "assets/styles/main.css" %}</style>
     {% else %}
       <link rel="stylesheet" href="/css/main.css">

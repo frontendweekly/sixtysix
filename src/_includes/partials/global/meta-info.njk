@@ -1,7 +1,7 @@
 {% set pageTitle = quote | truncate(45) + ' - ' + site.name %}
 
 {% if pageType == 'Homepage' %}
-  {% set pageTitle = site.name %}
+  {% set pageTitle = title %}
 {% endif %}
 
 {% if pageType == 'Archive' %}
@@ -41,7 +41,7 @@
   <meta name="author" content="{{ authorName }}">
 {% endif %}
 
-<meta property="og:site_name" content="{{ siteTitle }}">
+<meta property="og:site_name" content="{{ site.name }}">
 <meta property="og:title" content="{{ pageTitle }}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="{{ currentUrl }}">

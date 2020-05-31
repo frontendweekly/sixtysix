@@ -20,7 +20,7 @@
 <main id="main-content" tabindex="-1" class="page-{{ pageType | lower }}">
   <article class="c-post h-entry"{{ ' lang=ja' if lang == 'ja' }}>
     {% include "partials/components/intro.njk" %}
-    <div class="c-post__body o-inner-wrapper">
+    <div class="c-post__body o-wrapper">
       {{ content | safe }}
     </div>
   </article>

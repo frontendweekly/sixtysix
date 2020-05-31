@@ -30,9 +30,6 @@ module.exports = function (config) {
 
   // Custom collections
   config.addCollection('posts', (collection) => collectionPost(collection));
-  config.addCollection('postFeed', (collection) =>
-    collectionPostFeed(collection, site.maxPostsPerPage)
-  );
 
   return {
     dir: {

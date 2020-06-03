@@ -1,34 +1,47 @@
+<hr class="o-hr" aria-hidden="true">
+
 <footer role="contentinfo" class="c-site-foot">
   <div class="o-wrapper">
-    <section class="c-about">
-      <h3>About</h3>
-      <p>{{ site.description }}</p>
-      <div class="c-about__item c-about__item--contact">
-        <h4>Contact</h4>
-        <a href="mailto:{{ site.author.mail }}" title="email" rel="me" >{{ site.author.mail }}</a>
+
+    <div class="c-site-foot__switcher o-switcher">
+      <div class="o-switcher__intermediary">
+        <section class="c-about">
+          <h3>About</h3>
+          <p>{{ site.description }}</p>
+          <div class="c-about__item c-about__item--contact">
+            <h4>Contact</h4>
+            <p>
+              <a href="mailto:{{ site.author.mail }}" title="email" rel="me" >{{ site.author.mail }}</a>
+            </p>
+          </div>
+          <div class="c-about__item c-about__item--social">
+            <h4>Social</h4>
+            <p>
+              <a href="{{ site.social.twitter }}" title="Twitter" rel="me">Twitter</a> /
+              <a href="{{ site.social.github }}" title="GitHub" rel="me">GitHub</a>
+            </p>
+          </div>
+        </section>
+
+        <section class="c-publication">
+          <h3>Publications</h3>
+          <p>Sixty Six is one of publications I maintain. Other publications are listed here. I hope see you folks there as well.</p>
+          <div class="c-publication__item c-publication__item--few">
+            <h4>Frontend Weekly Tokyo</h4>
+            <p>
+              <a href="https://frontendweekly.tokyo/">Frontend Weekly Tokyo</a> is a weekly published curated media.
+            </p>
+          </div>
+          <div class="c-publication__item c-publication__item--virga">
+            <h4>Virga</h4>
+            <p>
+              <a href="https://virga.frontendweekly.tokyo/">Virga</a> is an Eleventy starter kit and my personal English blog.
+            </p>
+          </div>
+        </section>
       </div>
-      <div class="c-about__item c-about__item--social">
-        <h4>Social</h4>
-        <a href="{{ site.social.twitter }}" title="Twitter" rel="me">Twitter</a> /
-        <a href="{{ site.social.github }}" title="GitHub" rel="me">GitHub</a>
-      </div>
-    </section>
-    <section class="c-publication">
-      <h3>Publications</h3>
-      <p>Other publications I maintain</p>
-      <div class="c-publication__publication">
-        <h4>Frontend Weekly Tokyo</h4>
-        <p>
-          <a href="https://frontendweekly.tokyo/">Frontend Weekly Tokyo</a> is a weekly published curated media.
-        </p>
-      </div>
-      <div class="c-small-print__publication">
-        <h4>Virga</h4>
-        <p>
-          <a href="https://virga.frontendweekly.tokyo/">Virga</a> is an Eleventy starter kit and my personal English blog.
-        </p>
-      </div>
-    </section>
+    </div>
+
     <p class="site-foot__credit">
       <small>Made Proudly in Tokyo.</small>
     </p>

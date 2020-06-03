@@ -1,0 +1,20 @@
+.o-switcher {
+  --switcher-space: calc(var(--space-base) * 2);
+}
+
+.o-switcher > * {
+  display: flex;
+  flex-wrap: wrap;
+  margin: calc((var(--switcher-space) / 2) * -1);
+}
+
+.o-switcher > * > * {
+  flex-basis: calc((var(--switcher-threshold) - (100% - var(--switcher-space))) * 999);
+  flex-grow: 1;
+  margin: calc(var(--switcher-space) / 2);
+}
+
+.o-switcher > * > :nth-last-child(n + 3),
+.o-switcher > * > :nth-last-child(n + 3) ~ * {
+  flex-basis: 100%;
+}

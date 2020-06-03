@@ -1,9 +1,9 @@
 <p class="c-post-meta">
   {% if tags %}
-    <span class="p-author h-card">Quote from {{ tags | tagsToSentence | safe }}</span>
+    <span class="p-author h-card">Quote by {{ tags | tagsToSentence | safe }}</span>
   {% endif %}
   {% if metaDate %}
-    <time datetime="{{ metaDate | dateIsoFilter }}"
-          class="c-post-meta__date dt-published">/ {{ metaDate | dateOrdinalSuffixFilter }}</time>
+    Recorded at <time datetime="{{ metaDate | dateIsoFilter }}"
+          class="c-post-meta__date dt-published">{{ metaDate | dateOrdinalSuffixFilter }}</time>
   {% endif %}
 </p>

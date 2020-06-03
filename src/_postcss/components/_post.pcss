@@ -1,0 +1,12 @@
+.c-post {
+  & blockquote {
+    --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-7));
+
+    font-size: calc(
+      (var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em
+    );
+    font-style: italic;
+    font-weight: normal;
+    line-height: calc(var(--type-base-line-height) / var(--type-local-font-size-in-px));
+  }
+}

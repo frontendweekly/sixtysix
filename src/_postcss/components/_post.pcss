@@ -1,26 +1,33 @@
-.c-post {
-  & blockquote {
-    --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-7));
+.c-post blockquote {
+  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-9));
 
-    margin-top: 0;
-    font-size: calc(
-      (var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em
-    );
-    font-style: italic;
-    font-weight: normal;
-    line-height: calc(var(--type-base-line-height) / var(--type-local-font-size-in-px));
-  }
+  margin-top: 0;
+  font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
+  font-style: italic;
+  font-weight: normal;
+  line-height: calc(
+    (var(--type-base-line-height) / var(--type-local-font-size-in-px)) *
+      var(--type-scale-4)
+  );
+}
 
-  & blockquote + figcaption {
-    --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-3));
-    --type-local-space-top: calc(
-      var(--type-base-line-height) / var(--type-local-font-size-in-px)
-    );
+.c-post blockquote + figcaption {
+  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-3));
+  --type-local-space-top: calc(
+    var(--type-base-line-height) / var(--type-local-font-size-in-px)
+  );
 
-    margin-top: calc(var(--type-local-space-top) * 1em);
-  }
+  margin-top: calc(var(--type-local-space-top) * 1em);
+}
 
-  & .c-blockquote {
-    margin-top: 0;
-  }
+.c-post .c-blockquote {
+  margin-top: 0;
+}
+
+.c-post[lang='ja'] blockquote {
+  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-5));
+
+  font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
+  font-style: normal;
+  line-height: calc((var(--type-base-line-height) / var(--type-local-font-size-in-px)));
 }

@@ -15,12 +15,7 @@
               </h3>
               <footer class="c-post-list__meta">
                 {% if item.data.tags %}
-                  <span class="c-post-list__byline p-author h-card">By {{ item.data.tags | tagsToSentence | safe }}</span>
-                {% endif %}
-                {% if item.date %}
-                  <span class="c-post-list__recorded-at">Recorded at
-                     <time datetime="{{ item.date | dateIsoFilter }}" class="c-post-list__date dt-published">{{ item.date | dateOrdinalSuffixFilter }}</time>
-                  </span>
+                  <span class="c-post-list__byline p-author h-card">{{ item.data.tags | tagsToSentence | safe }}</span>
                 {% endif %}
               </footer>
             </article>

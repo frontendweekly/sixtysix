@@ -5,9 +5,9 @@ tags:
 cite: Approximately correct
 link: 'https://www.jjude.com/approximate'
 when: '2020, Apr 28'
-quote: >-
-  Life is a dance of the probabilities. If you wait for certainties, you will
-  lose opportunities; instead, aspire to be approximately correct.
+quote: |-
+  Life is a dance of the probabilities. 
+  If you wait for certainties, you will lose opportunities; instead, aspire to be approximately correct.
 ---
 
 > {{ quote | safe }}

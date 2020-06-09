@@ -1,6 +1,6 @@
 ---
 date: '2014-02-18'
-quote: |
+quote: |-
   Simply presenting flat image comps is by no means enough — it’s only the start… As layouts become more adaptable, flexible and context-specific, so individual components will become the focus of our design. It is therefore essential to get the foundational aspects of our designs right, and style guides allow us to do that.
 tags:
   - Paul Lloyd

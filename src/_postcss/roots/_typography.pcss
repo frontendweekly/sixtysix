@@ -1,12 +1,16 @@
 :root {
   --type-base-font-size: 18;
   --type-base-line-height: 28.8;
+  --type-scale-9: 1.777777777;
   --type-scale-8: 1.666666666;
   --type-scale-7: 1.555555555;
   --type-scale-6: 1.444444444;
   --type-scale-5: 1.333333333;
   --type-scale-4: 1.222222222;
   --type-scale-3: 1.111111111;
+  --type-scale-2: 1;
+  --type-scale-1: 0.999999999;
+  --type-scale-0: 0.888888888;
   --type-face-serif: 'Georgia', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
     serif;
   --type-face-sans: system-ui, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
@@ -113,14 +117,21 @@ h1 + h3 {
   );
 }
 
-:is(h1, h2, h3, h4, h5, h6) + :is(h3, h4, h5, h6),
-main > h6:first-child {
+:is(h1, h2, h3, h4, h5, h6) + :is(h3, h4, h5, h6) {
   margin-top: 0;
 }
 
 :is(h3, h4, h5) + :matches(p, ol, ul, dl, figure, blockquote, pre, table),
 :is(h1, h2, h3, h4, h5) + h6 + *,
 hr + h6 {
+  margin-top: 0;
+}
+
+article > :is(h1, h2, h3, h4, h5, h6):first-child {
+  margin-top: 0;
+}
+
+section > :is(h1, h2, h3, h4, h5, h6):first-child {
   margin-top: 0;
 }
 

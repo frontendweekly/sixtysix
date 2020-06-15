@@ -1,5 +1,5 @@
 ---
-title: Tag Archive
+title: Quote by
 pagination:
   data: collections
   size: 1
@@ -20,11 +20,8 @@ permalink: /tags/{{ tag | slug }}/
 
 {# Intro content #}
 {% set introHeading %}Quote by “{{ tag }}”{% endset %}
-{% set introHeadingLevel = '2' %}
 
 {# Post list content #}
-{% set postListHeadingLevel = '2' %}
-{% set postListHeading = 'Quotes' %}
 {% set postListItems = collections[tag] %}
 
 {% block content %}

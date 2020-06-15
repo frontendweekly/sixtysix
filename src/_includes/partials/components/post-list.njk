@@ -1,21 +1,25 @@
 {% if postListItems.length %}
-<section class="c-post-list h-feed">
+<section class="c-post-list u-full-bleed h-feed">
   <div class="o-wrapper">
-    {% if postListHeading %}
-    <h2 class="c-post-list__heading p-name">{{ postListHeading }}</h2>
-    {% endif %}
     <ol class="c-post-list__items" reversed>
       {% for item in postListItems %}
         {% if item.date.getTime() <= global.now %}
           <li class="c-post-list__item">
             <article {{ 'lang=ja' if item.data.lang == 'ja' }}>
               <h3>
-                <a href="{{ item.url }}" class="c-post-list__link u-url"
-                   rel="bookmark">{{ item.data.quote | truncate(120) | safe }}</a>
+                <a href="{{ item.url }}" class="c-post-list__link u-url">
+                  {{ item.data.quote | truncate(120) | safe }}
+                </a>
               </h3>
               <footer class="c-post-list__meta">
                 {% if item.data.tags %}
                   <span class="c-post-list__byline p-author h-card">{{ item.data.tags | tagsToSentence | safe }}</span>
+                {% endif %}
+                {% if item.data.cite %}
+                  <span class="c-post-list__cite">{{ item.data.cite }}</span>
+                {% endif %}
+                {% if item.data.when %}
+                  <span class="c-post-list__when">{{ item.data.when }}</span>
                 {% endif %}
               </footer>
             </article>

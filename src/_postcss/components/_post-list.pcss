@@ -34,3 +34,19 @@
 .c-post-list__byline::before {
   content: '— ';
 }
+
+.c-post-list__byline:not(:only-child)::after {
+  content: ',';
+}
+
+.c-post-list__cite::after {
+  content: '.';
+}
+
+.c-post-list__when::before {
+  content: '(';
+}
+
+.c-post-list__when::after {
+  content: ')';
+}

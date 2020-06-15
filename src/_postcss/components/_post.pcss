@@ -1,7 +1,29 @@
+.c-post {
+  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-5));
+  --type-local-space-top: calc(
+    var(--space-char-per-line) / var(--type-local-font-size-in-px)
+  );
+
+  margin-top: calc(var(--type-local-space-top) * 1em);
+}
+
+.c-post__body {
+  --space-char-per-line: 72;
+
+  max-width: calc(var(--space-char-per-line) * 1ch);
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.c-blockquote {
+  padding: 3em;
+  border: 2px solid var(--color-text);
+  border-radius: 4px;
+}
+
 .c-post blockquote {
   --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-9));
 
-  margin-top: 0;
   font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
   font-style: italic;
   font-weight: normal;
@@ -11,23 +33,23 @@
   );
 }
 
-.c-post blockquote + figcaption {
-  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-3));
-  --type-local-space-top: calc(
-    var(--type-base-line-height) / var(--type-local-font-size-in-px)
-  );
-
-  margin-top: calc(var(--type-local-space-top) * 1em);
+.c-post .c-blockquote__attribution a {
+  text-decoration: none;
 }
 
-.c-post .c-blockquote {
-  margin-top: 0;
+.c-post .c-blockquote__attribution a:hover {
+  text-decoration: underline;
 }
 
 .c-post[lang='ja'] blockquote {
-  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-5));
+  --type-local-font-size-in-px: calc(var(--type-base-font-size) * var(--type-scale-3));
 
   font-size: calc((var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em);
   font-style: normal;
   line-height: calc((var(--type-base-line-height) / var(--type-local-font-size-in-px)));
+}
+
+.c-post blockquote,
+.c-post .c-blockquote {
+  margin-top: 0;
 }

@@ -13,7 +13,7 @@
 {% set metaDate = date %}
 
 {% block content %}
-<main id="main-content" tabindex="-1" class="page-{{ pageType | lower }}">
+<main id="main-content" tabindex="-1">
   <article class="c-post h-entry u-full-bleed"{{ ' lang=ja' if lang == 'ja' }}>
     <div class="c-post__body">
       {{ content | safe }}

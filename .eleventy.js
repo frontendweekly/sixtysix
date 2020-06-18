@@ -4,10 +4,6 @@ const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
 const molle = require('@frontendweekly/molle');
 const collectionPost = require('@frontendweekly/collection-posts');
-const collectionPostFeed = require('@frontendweekly/collection-postfeed');
-
-// Import data files
-const site = require('./src/_data/site.json');
 
 module.exports = function (config) {
   // Watch postcss

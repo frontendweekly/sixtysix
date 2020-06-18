@@ -17,8 +17,7 @@
 
 .c-blockquote {
   padding: 3em;
-  border: 2px solid var(--color-text);
-  border-radius: 4px;
+  border-left: var(--space-base) solid var(--color-accent);
 }
 
 .c-post blockquote {
@@ -50,6 +49,7 @@
 }
 
 .c-post blockquote,
-.c-post .c-blockquote {
+.c-post .c-blockquote,
+.c-post blockquote > *:first-child {
   margin-top: 0;
 }

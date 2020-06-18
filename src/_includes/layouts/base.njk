@@ -19,7 +19,7 @@
     {% endif %}
   </head>
 </html>
-<body>
+<body class="page-{{ pageType | lower }}">
 {% include "partials/global/site-head.njk" %}
 {% block content %}
 {% endblock %}

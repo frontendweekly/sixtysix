@@ -35,7 +35,7 @@ const markup = (data) => {
         </style>
       </head>
       <body>
-        <article class="c-preview h-entry" ${langSwitch(data.lang)}>
+        <article class="c-preview c-post h-entry" ${langSwitch(data.lang)}>
           <span class="c-preview__logo">${logo}</span>
           <div class="c-preview__inner-wrapper">
             <figure class="c-blockquote">
@@ -92,7 +92,7 @@ module.exports = class {
       clip: {x: 0, y: 0, width: 1200, height: 628},
     });
 
-    browser.close();
+    await browser.close();
 
     return await this.optimize(screenshot);
   }

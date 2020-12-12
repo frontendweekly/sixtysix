@@ -1,6 +1,5 @@
 // Import plugins
 const rssPlugin = require('@11ty/eleventy-plugin-rss');
-const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
 
 const molle = require('@frontendweekly/molle');
 const collectionPost = require('@frontendweekly/collection-posts');
@@ -11,15 +10,11 @@ module.exports = function (config) {
 
   // Plugins
   config.addPlugin(rssPlugin);
-  config.addPlugin(syntaxHighlight);
   config.addPlugin(molle);
 
   // Passthrough copy
-  config.addPassthroughCopy('src/images');
   config.addPassthroughCopy('src/favicon.*');
   config.addPassthroughCopy('src/humans.txt');
-  config.addPassthroughCopy('src/fonts');
-  config.addPassthroughCopy('src/scripts');
 
   // Layout aliases
   config.addLayoutAlias('home', 'layouts/home.njk');

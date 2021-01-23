@@ -1,0 +1,40 @@
+.c-post {
+  --type-local-font-size-in-px: calc(
+    var(--type-base-font-size) * var(--type-scale-5)
+  );
+  --type-local-space-top: calc(
+    var(--space-char-per-line) / var(--type-local-font-size-in-px)
+  );
+
+  margin-top: calc(var(--type-local-space-top) * 1em);
+}
+
+.c-post blockquote {
+  --type-local-font-size-in-px: calc(
+    var(--type-base-font-size) * var(--type-scale-9)
+  );
+
+  font-size: calc(
+    (var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em
+  );
+  font-style: italic;
+  font-weight: normal;
+  line-height: calc(
+    (var(--type-base-line-height) / var(--type-local-font-size-in-px)) *
+      var(--type-scale-4)
+  );
+}
+
+.c-post[lang='ja'] blockquote {
+  --type-local-font-size-in-px: calc(
+    var(--type-base-font-size) * var(--type-scale-3)
+  );
+
+  font-size: calc(
+    (var(--type-local-font-size-in-px) / var(--type-base-font-size)) * 1em
+  );
+  font-style: normal;
+  line-height: calc(
+    (var(--type-base-line-height) / var(--type-local-font-size-in-px))
+  );
+}

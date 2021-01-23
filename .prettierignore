@@ -3,3 +3,5 @@ node_modules/
 .browserslistrc
 .huskyrc
 .lintstagedrc
+*.md
+11ty/_includes/assets/styles/

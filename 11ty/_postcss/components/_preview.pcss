@@ -1,0 +1,50 @@
+.c-preview {
+  position: relative;
+  display: flex;
+  width: 1200px;
+  height: 628px;
+  flex: none;
+  padding: 4rem 7rem;
+  contain: layout;
+}
+
+.c-preview__logo {
+  --type-preview-font-size-in-px: 16;
+
+  position: absolute;
+  top: calc(
+    (var(--type-preview-font-size-in-px) / var(--type-base-font-size)) * 1em
+  );
+  right: 7rem;
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: none;
+}
+
+.c-preview__logo svg {
+  border-radius: 12%;
+}
+
+.c-preview__inner-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.c-preview .o-blockquote blockquote {
+  --type-local-font-size-in-px: 32;
+}
+
+.c-preview .o-blockquote__attribution {
+  --type-local-font-size-in-px: 22;
+}
+
+.c-preview[lang='ja'] .o-blockquote blockquote {
+  --type-local-font-size-in-px: calc(32 * 0.75);
+}
+
+.c-preview[lang='ja'] .o-blockquote__attribution {
+  --type-local-font-size-in-px: calc(22 * 0.8);
+}

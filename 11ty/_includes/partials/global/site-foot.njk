@@ -1,0 +1,28 @@
+<hr class="o-hr" aria-hidden="true">
+
+<footer role="contentinfo" class="c-site-foot">
+  <div class="o-wrapper">
+
+    <div class="c-about">
+      <div class="c-about__item c-about__item--site">
+        <h3>About</h3>
+        <p>{{ site.description }}</p>
+      </div>
+      <div class="c-about__item c-about__item--contact">
+        <h3>Contact</h3>
+        <p>
+          <a href="mailto:{{ site.author.mail }}" title="email" rel="me" >{{ site.author.mail }}</a>
+        </p>
+      </div>
+      <div class="c-about__item c-about__item--social">
+        <h3>Social</h3>
+        <p>
+          <a href="{{ site.social.twitter }}" title="Twitter" rel="me">Twitter</a> /
+          <a href="{{ site.social.github }}" title="GitHub" rel="me">GitHub</a>
+        </p>
+      </div>
+    </div>
+
+    <small class="c-site-foot__credit">Made Proudly in Tokyo.</small>
+  </div>
+</footer>

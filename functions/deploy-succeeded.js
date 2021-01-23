@@ -1,23 +1,11 @@
-// Stole from https://github.com/maxboeck/mxb/blob/master/_lambda/deploy-succeeded.js
-
 const fetch = require('node-fetch');
-const dotenv = require('dotenv');
-const Twitter = require('twitter');
-
-dotenv.config();
-
-// URL of site JSON feed
-const FEED_URL = 'https://sixtysix.frontendweekly.tokyo/feed.json';
-
-// Configure Twitter API Client
-const twitter = new Twitter({
-  consumer_key: process.env.TWITTER_CONSUMER_KEY,
-  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
-  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+const Twitter = require('twitter-lite');
+require('dotenv-flow').config({
+  default_node_env: 'development',
 });
 
-// Helper Function to return unknown errors
+// Helper functions
+/// Helper Function to return unknown errors
 const handleError = (err) => {
   console.error(err);
   const msg = Array.isArray(err) ? err[0].message : err.message;
@@ -27,7 +15,7 @@ const handleError = (err) => {
   };
 };
 
-// Helper Function to return function status
+/// Helper Function to return function status
 const status = (code, msg) => {
   console.log(msg);
   return {
@@ -36,78 +24,69 @@ const status = (code, msg) => {
   };
 };
 
-// Check existing posts
-const processPosts = async (posts) => {
-  const siteTitle = posts.title;
-  const items = posts.items;
+/// Helper Function to calc date difference between published date and now
+const differenceInDays = (now, publishedDate) =>
+  Math.ceil((now - new Date(publishedDate)) / 1000 / 60 / 60 / 24);
 
-  if (!items.length) {
-    return status(404, 'No posts found to process.');
-  }
+// Configure Twitter API Client
+const twitter = new Twitter({
+  subdomain: 'api',
+  version: '1.1',
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
+});
 
-  // assume the last post is not yet syndicated
-  const latestPost = items[0];
-
-  console.log('latestPost.url is ', latestPost.url);
-
-  try {
-    // check twitter for any tweets containing post URL.
-    // if there are none, publish it.
-    const q = await twitter.get('search/tweets', {q: latestPost.url});
-    if (q.statuses && q.statuses.length === 0) {
-      return publishPost(siteTitle, latestPost);
-    } else {
-      return status(400, 'Latest post was already syndicated. No action taken.');
-    }
-  } catch (err) {
-    return handleError(err);
-  }
+// Fetch JSON Feed
+const fetchFeed = async () => {
+  /// URL of site JSON feed
+  const FEED_URL = 'https://virga.frontendweekly.tokyo/feed.json';
+  const response = await fetch(FEED_URL);
+  return response.json();
 };
 
-// Prepare the content string for tweet format
-const prepareStatusText = (siteTitle, post) => {
-  // Tweet will be
-  // title === {{ post.data.title | truncate(60) | jsonify | safe }}
-  // `${title} via ${siteTitle}: {$url}`
-  // `${title} via ${siteTitle}: ${$url}`.length MUST be within maxLength
-  const tweetMaxLength = 280;
-  const titleLength = String(post.title).length;
-  const urlLength = String(post.url).length;
-  const viaLength = 3;
-  const siteTitleLength = String(siteTitle).length;
-  const spaceLength = 3;
-  const colon = 1;
+// Create a text for a tweet. Remember there is 280 characters limit on Twitter
+const prepareStatusText = (ingredient = {}) => {
+  // A tweet will be
+  // `${status} via ${siteName}: {$url}`
+  // I'm assuming URL won't exceed 40 characters.
+  const tweetMaxLength = 240;
+  const statusLength = String(ingredient.status).length;
+  const siteNameLength = String(ingredient.siteName).length;
+  const spacesAndPunctuation = 7;
   const maxLength =
-    tweetMaxLength -
-    titleLength -
-    viaLength -
-    siteTitleLength -
-    spaceLength -
-    colon -
-    urlLength;
+    tweetMaxLength - statusLength - siteNameLength - spacesAndPunctuation;
 
-  let tweetText = `${post.title} via ${siteTitle}: `;
+  let tweetText = `${ingredient.status}`;
 
   // truncate text if its too long for a tweet.
-  if (tweetText.length > maxLength) {
-    tweetText = tweetText.substring(0, maxLength) + '...';
+  if (tweetText.length > maxLength - siteNameLength - spacesAndPunctuation) {
+    tweetText =
+      tweetText.substring(
+        0,
+        maxLength - siteNameLength - spacesAndPunctuation
+      ) + '...';
   }
 
-  // include the post url at the end;
-  tweetText += `${post.url}`;
+  // append the other part;
+  tweetText += ` via ${ingredient.siteName}: ${ingredient.url}`;
 
   return tweetText;
 };
 
 // Push a new post to Twitter
-const publishPost = async (siteTitle, post) => {
+const publishPost = async (ingredient) => {
   try {
-    const statusText = prepareStatusText(siteTitle, post);
+    const statusText = prepareStatusText(ingredient);
     const tweet = await twitter.post('statuses/update', {
       status: statusText,
     });
     if (tweet) {
-      return status(200, `Post ${post.date} successfully posted to Twitter.`);
+      return status(
+        200,
+        `Post "${statusText}" successfully posted to Twitter.`
+      );
     } else {
       return status(422, 'Error posting to Twitter API.');
     }
@@ -116,12 +95,46 @@ const publishPost = async (siteTitle, post) => {
   }
 };
 
-// Main Lambda Function Handler
+// Gateway
+const gateway = async (feed) => {
+  const items = feed.items;
+  try {
+    if (!items.length) {
+      return status(404, 'No posts found to process.');
+    }
+
+    // assume the last post is not yet syndicated
+    const latestPost = items[0];
+
+    // if the latest post is 7 days old, assume post is syndicated
+    if (differenceInDays(new Date(), latestPost.date_published) >= 7) {
+      return status(
+        400,
+        'Latest post is more than 7 days old, assuming already syndicated. No action taken.'
+      );
+    }
+
+    // check twitter for any tweets containing post URL.
+    // if there are none, publish it.
+    const q = await twitter.get('search/tweets', {q: latestPost.url});
+    if (q.statuses && q.statuses.length === 0) {
+      return publishPost({
+        status: latestPost.title,
+        url: latestPost.url,
+        title: feed.title,
+      });
+    } else {
+      return status(
+        400,
+        'Latest post was already syndicated. No action taken.'
+      );
+    }
+  } catch (err) {
+    return handleError(err);
+  }
+};
+
+// Lambda Function Handler
 exports.handler = async () => {
-  // Fetch the list of published posts to work on,
-  // then process them to check if an action is necessary
-  return fetch(FEED_URL)
-    .then((response) => response.json())
-    .then(processPosts)
-    .catch(handleError);
+  return fetchFeed().then(gateway).catch(handleError);
 };

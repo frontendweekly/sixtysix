@@ -1,0 +1,25 @@
+{% extends 'layouts/base.njk' %}
+{% set pageType = 'Post' %}
+
+{# Intro content #}
+{% set introHeading = quote | truncate(45) %}
+
+{% if author %}
+  {% set metaAuthor = author %}
+{% else %}
+  {% set metaAuthor = site.author.name %}
+{% endif %}
+
+{% set metaDate = date %}
+
+{% block content %}
+<main id="main-content" tabindex="-1">
+  <article class="c-post h-entry"{{ ' lang=ja' if lang == 'ja' }}>
+    <div class="c-post__body o-wrapper">
+      {{ content | safe }}
+    </div>
+  </article>
+</main>
+{% endblock %}
+
+{{ content | safe }}

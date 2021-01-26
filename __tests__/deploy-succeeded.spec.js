@@ -83,15 +83,11 @@ test('publishPost works', async () => {
 });
 
 test('integration test', async () => {
-  advanceTo(new Date(2021, 0, 19, 0, 0, 0));
   const actual = await fetchFeed().then(gateway).catch(handleError);
-
   expect(actual).toMatchInlineSnapshot(`
     Object {
-      "body": "Latest post is more than 7 days old, assuming already syndicated. No action taken.",
-      "statusCode": 400,
+      "body": "Post \\"Shareable Configs via Sixtysix: https://sixtysix.frontendweekly.tokyo/posts/shareable-configs\\" successfully posted to Twitter.",
+      "statusCode": 200,
     }
   `);
-
-  clear();
 });

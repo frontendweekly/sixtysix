@@ -2,14 +2,16 @@
   padding-bottom: calc(var(--space-base) * 4);
 }
 
-.c-site-foot__credit {
+.c-site-foot > * > * + * {
   --type-local-font-size-in-px: calc(
     var(--type-base-font-size) * var(--type-scale-3)
   );
   --type-local-space-top: calc(
     var(--type-base-line-height) / var(--type-local-font-size-in-px)
   );
-
-  display: block;
   margin-top: calc(var(--type-local-space-top) * 1em);
+}
+
+.c-site-foot__credit {
+  display: block;
 }

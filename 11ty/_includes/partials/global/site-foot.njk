@@ -3,6 +3,7 @@
 <footer role="contentinfo" class="c-site-foot">
   <div class="o-wrapper">
 
+    {% if pageType === 'Homepage' %}
     <div class="c-about">
       <div class="c-about__item c-about__item--site">
         <h3>About</h3>
@@ -22,6 +23,7 @@
         </p>
       </div>
     </div>
+    {% endif %}
 
     <small class="c-site-foot__credit">Made Proudly in Tokyo.</small>
   </div>

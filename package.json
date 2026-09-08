@@ -34,7 +34,7 @@
   },
   "homepage": "https://github.com/frontendweekly/sixtysix#readme",
   "dependencies": {
-    "@11ty/eleventy": "^0.12.1",
+    "@11ty/eleventy": "^3.1.6",
     "@11ty/eleventy-plugin-rss": "^1.1.1",
     "@frontendweekly/collection-posts": "^0.0.9",
     "@frontendweekly/eleventy-plugin-markdown": "^0.0.13",
